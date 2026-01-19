@@ -1,0 +1,13 @@
+Frontend (Streamlit)
+        ↓
+FastAPI Backend
+        ↓
+LangGraph (Decision Flow)
+        ↓
+LangChain (Chains + Tools)
+        ↓
+LLM (LLaMA 3 via Ollama)
+        ↓
+Vector DB (FAISS / Chroma)
+        ↓
+LangSmith (Monitoring)
