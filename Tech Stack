@@ -1,0 +1,7 @@
+Backend: FastAPI 
+LLMs: Open-source (LLaMA 3 / Mistral via Ollama) 
+Vector DB: FAISS / Chroma 
+LangChain: Chains + Tools 
+LangGraph: Agent workflows
+LangSmith: Debugging + Evaluation 
+Frontend: Streamlit 
