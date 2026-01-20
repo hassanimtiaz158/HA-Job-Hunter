@@ -14,98 +14,50 @@ An AI-powered job hunting agent that autonomously analyzes job descriptions, mat
 | 6 | Vector DB (FAISS / Chroma) | Stores embeddings for resume and job description similarity search |
 | 7 | LangSmith | Provides monitoring, tracing, and observability of agent workflows |
 
-## ✅ Frontend (Streamlit) – What We Have Implemented
+## 🖥️ Frontend Implementation (Streamlit)
 
-### 🖥️ 1. User Interface (UI)
-- Built an interactive **Streamlit web application**
-- Added:
-  - App title and description
-  - Page configuration
-- Designed a **simple and user-friendly job hunter interface**
+The frontend of **HA-JOBHunter** is built using **Streamlit** and provides a simple, interactive interface for users to submit resumes and job descriptions for analysis.
 
 ---
 
-### 📄 2. Resume Upload Handling
-- Enabled **multiple resume uploads**
-- Supported file formats:
-  - **PDF**
-  - **DOCX**
-  - **TXT**
-- Safely handled different file types to prevent crashes
+### 📄 1. Resume Upload Section
+- Added a **file upload section** that allows users to upload **multiple resumes** at once
+- Supported common resume formats:
+  - PDF
+  - DOCX
+  - TXT
+- This section serves as the primary input for candidate data
 
 ---
 
-### ✂️ 3. Text Extraction from Resumes
-- Extracted resume text from:
-  - **PDF** using `pdfplumber`
-  - **DOCX** using `python-docx`
-  - **TXT** using file decoding
-- Combined text across:
-  - Multiple pages
-  - Paragraphs
+### 📝 2. Job Description Input Section
+- Added a **text area** where users can paste a complete job description
+- Allows long-form input suitable for detailed job requirements
+- This input is used as the reference point for resume matching
 
 ---
 
-### 🧹 4. Text Cleaning & Normalization
-- Converted all text to **lowercase**
-- Removed unnecessary and junk characters
-- Normalized whitespace
-- Prepared clean text for embedding generation
+### ▶️ 3. Analyze Action Button
+- Added an **Analyze** button to initiate the processing workflow
+- Acts as a trigger for:
+  - Resume analysis
+  - Text cleaning
+  - Embedding generation
+  - Similarity matching
+- Provides clear user control over when analysis starts
 
 ---
 
-### 🧠 5. Open-Source Embedding Model
-- Used **SentenceTransformer** (`all-MiniLM-L6-v2`)
-- Cached the model to avoid repeated loading
-- Generated embeddings **locally**
-- No API cost or external dependency
+### ⚡ User Experience Highlights
+- Clean and minimal interface
+- Logical input flow (Resumes → Job Description → Analyze)
+- Clear feedback when the analysis process begins
 
 ---
 
-### 🧩 6. Resume Chunking
-- Split resumes into **smaller text chunks**
-- Prevented loss of important resume sections
-- Improved semantic similarity accuracy
+### ✅ Purpose of the Frontend
+The frontend acts as a bridge between the user and the AI-powered backend, ensuring that all required inputs are collected in a structured and user-friendly way before processing begins.
 
 ---
-
-### 🔍 7. Semantic Similarity Matching
-- Compared resume chunks with the job description
-- Used **cosine similarity**
-- Selected the **best-matching chunk** for each resume
-
----
-
-### 🧑‍💻 8. Skill Extraction & Matching
-- Extracted skills using **regex-based logic**
-- Identified:
-  - ✅ Matched skills
-  - ❌ Missing skills
-- Improved transparency and explainability
-
----
-
-### 📊 9. Combined Match Scoring Logic
-- Calculated a final score using:
-  - Semantic similarity score
-  - Skill overlap score
-- Generated a **final match percentage**
-
----
-
-### 📈 10. Ranking & Displaying Results
-- Ranked resumes based on match score
-- Displayed results in a **clean, sortable table**
-- Clearly showed:
-  - Match percentage
-  - Matched skills
-  - Missing skills
-
----
-
-### ⚡ 11. User Feedback & Validation
-- Displayed warnings for missing inputs
-- Showed loading and success messages
-- Improved overall user experience (UX)
 
 ---
