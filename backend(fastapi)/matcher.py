@@ -3,30 +3,17 @@ from sentence_transformers import SentenceTransformer, util
 
 # ---------------- Skill Database ----------------
 SKILL_DB = [
-    # Programming
     "python", "java", "c", "c++", "c#", "go", "rust", "swift",
     "kotlin", "javascript", "typescript", "php", "ruby",
-
-    # Web
     "html", "css", "bootstrap", "tailwind css",
     "react", "next.js", "vue", "angular",
-
-    # Backend
     "fastapi", "django", "flask", "spring boot",
     "node.js", "express.js",
-
-    # Databases
     "sql", "mysql", "postgresql", "mongodb", "redis",
-
-    # AI / ML
     "machine learning", "deep learning",
     "tensorflow", "pytorch", "scikit-learn",
     "nlp", "langchain", "langgraph",
-
-    # DevOps / Cloud
     "docker", "kubernetes", "aws", "azure", "gcp",
-
-    # Tools
     "git", "github", "streamlit", "postman"
 ]
 
@@ -34,29 +21,34 @@ SKILL_DB = [
 def clean_text(text: str) -> str:
     text = text.lower().replace("\n", " ")
     text = " ".join(text.split())
-    text = re.sub(r"[^a-z0-9\s\+\#\.\-]", "", text)
-    return text
+    return re.sub(r"[^a-z0-9\s\+\#\.\-]", "", text)
 
 
 # ---------------- Skill Extraction ----------------
 def extract_skills(text: str) -> list:
-    skills = []
-    for skill in SKILL_DB:
-        pattern = r"\b" + re.escape(skill) + r"\b"
-        if re.search(pattern, text):
-            skills.append(skill)
-    return skills
+    return [
+        skill for skill in SKILL_DB
+        if re.search(r"\b" + re.escape(skill) + r"\b", text)
+    ]
 
 
+# ---------------- MODEL CACHING (IMPORTANT) ----------------
+_model = None
 
-# ---------------- Embedding Model ----------------
-model = SentenceTransformer("all-MiniLM-L6-v2")
+def get_model():
+    global _model
+    if _model is None:
+        print("🔹 Loading embedding model...")
+        _model = SentenceTransformer("all-MiniLM-L6-v2")
+    return _model
 
 
 # ---------------- Resume Matching ----------------
-def match_score(resume_text: str, job_desc: str) -> dict:
+def match_score(resume_text: str, job_description: str) -> dict:
+    model = get_model()   # ✅ NOW DEFINED
+
     resume_clean = clean_text(resume_text)
-    jobd_clean = clean_text(job_desc)
+    jobd_clean = clean_text(job_description)
 
     resume_embedding = model.encode(resume_clean, convert_to_tensor=True)
     jobd_embedding = model.encode(jobd_clean, convert_to_tensor=True)
@@ -69,12 +61,6 @@ def match_score(resume_text: str, job_desc: str) -> dict:
     return {
         "match_score": round(similarity * 100, 2),
         "matched_skills": sorted(resume_skills & jobd_skills),
-        "missing_skills": sorted(jobd_skills - resume_skills)
+        "missing_skills": sorted(jobd_skills - resume_skills),
+        "your_additional_skills": sorted(resume_skills - jobd_skills)
     }
-
-
-# ---------------- Local Test ----------------
-#if __name__ == "__main__":
-#    resume = "I am a Python developer. I use Git and Docker."
-#    jd = "Need Python developer with AWS and Docker"
-#    print(match_score(resume, jd))
