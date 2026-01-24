@@ -4,16 +4,15 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from matcher import match_score
 
-# 🔐 SET YOUR GROQ API KEY
+
 os.environ["GROQ_API_KEY"] = "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"
 
-# -------- Initialize GROQ LLM --------
+
 llm = ChatGroq(
     model="llama3-8b-8192",
     temperature=0
 )
 
-# -------- Prompt --------
 prompt = PromptTemplate(
     input_variables=["resume", "job"],
     template="""
@@ -48,3 +47,4 @@ def run_agent(resume_text: str, job_description: str):
         "rule_based_result": rule_based,
         "llm_analysis": llm_response
     }
+
