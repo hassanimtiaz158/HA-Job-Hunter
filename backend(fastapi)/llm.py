@@ -24,7 +24,7 @@ Give:
 """
 
     response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",  # ✅ FIXED MODEL
+        model="llama-3.1-8b-instant", 
         messages=[
             {"role": "system", "content": "You are a helpful job matching assistant."},
             {"role": "user", "content": prompt}
@@ -34,3 +34,4 @@ Give:
     )
 
     return response.choices[0].message.content
+
