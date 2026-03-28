@@ -1,6 +1,6 @@
 # 🚀 HA-Job-Hunter
 
-**HA-Job-Hunter** is an AI-powered job-hunting assistant designed to intelligently analyze job descriptions, match resumes, and provide structured insights to help candidates improve their chances of selection.  
+**HA-Job-Hunter** is an AI-powered Job-Hunting assistant designed to intelligently analyze job descriptions, match resumes, and provide structured insights to help candidates improve their chances of selection.  
 The system leverages **modern AI orchestration frameworks** such as **LangGraph**, **LangChain**, and **LangSmith**, combined with semantic similarity techniques and LLM-based reasoning.
 
 ---
